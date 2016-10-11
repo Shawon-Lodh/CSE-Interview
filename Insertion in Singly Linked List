@@ -1,0 +1,120 @@
+/* Following is the program demonstrating how to insert a new node in a linked list */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+/* First step is creation of a structure (struct node) which would contain the data types for a cell of linked list*/
+
+struct node
+{
+	int data;
+	struct node *next; // "next" is a pointer which will point to an address of type struct node, i.e:- pointing to another node
+};
+
+/* There are 3 ways in which we would like to insert a new node :-
+
+1. At the beginning of the list
+2. After a given node
+3. At the last of list
+
+*/
+
+void insertFirst(struct node **head_ref, int data)
+{
+	struct node *newnode =  (struct node*)malloc(sizeof(struct node));
+	
+	newnode->data = data;
+	
+	if((*head_ref) == NULL)
+	{
+		(*head_ref) = newnode;
+		return ;
+	}
+	
+	
+		newnode->next = (*head_ref);
+		(*head_ref) = newnode;
+	
+}
+
+
+void insertAfter(struct node **head_ref, int data , int afterdata)
+{
+	struct node *newnode =  (struct node*)malloc(sizeof(struct node));
+	
+	newnode->data = data;
+	
+	if((*head_ref) == NULL)
+	{
+		(*head_ref) = newnode;
+		return ;
+	}
+
+	
+	
+	
+		struct node *temp = (*head_ref);
+		struct node *prev = NULL;
+		
+		while(temp->data!=afterdata)
+		{
+			prev = temp;
+			temp = temp->next;
+		}
+		
+		prev = prev->next;
+		temp = temp->next;
+		
+		prev->next = newnode;
+		newnode->next = temp;
+	
+	
+}
+
+
+void insertLast(struct node **head_ref, int data)
+{
+		struct node *newnode =  (struct node*)malloc(sizeof(struct node));
+	
+	newnode->data = data;
+	newnode->next = NULL;
+	
+	if((*head_ref) == NULL)
+	{
+		(*head_ref) = newnode;
+		return ;
+	}
+	
+	
+		struct node *temp = (*head_ref);
+		while(temp->next!=NULL)
+		{
+			temp = temp->next;
+		}
+		
+		temp->next = newnode;
+	
+}
+
+int main()
+{
+	struct node *head = (struct node*)malloc(sizeof(struct node));
+	head->data = 10;
+	
+	insertFirst(&head, 20);
+	
+	insertLast(&head, 30);
+	
+	insertAfter(&head, 40 , 10);
+	
+	struct node* curr = head;
+	
+	while(curr!=NULL)
+	{
+		printf("%d ", curr->data); // printing all the node data using loop
+		
+		curr = curr->next;
+	}
+	
+	return 0;
+}
