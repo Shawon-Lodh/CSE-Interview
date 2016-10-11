@@ -1,0 +1,102 @@
+/* Following is the program demonstrating how to delete a node having a certain key */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+/* First step is creation of a structure (struct node) which would contain the data types for a cell of linked list*/
+
+struct node
+{
+	int data;
+	struct node *next; // "next" is a pointer which will point to an address of type struct node, i.e:- pointing to another node
+};
+
+struct node* createNode(int data)
+{
+	struct node *temp = (struct node*)malloc(sizeof(struct node));
+	
+	temp->data = data;
+	
+	temp->next = NULL;
+	
+	return temp;
+}
+
+
+void deletepos(struct node **head_ref, int pos)
+{
+	if((*head_ref)==NULL)
+	{
+		printf("No nodes are present");
+		return ;
+	}
+	
+	if(pos==0)
+	{
+		struct node *temp = (*head_ref);
+		(*head_ref) = temp->next;
+		
+		free(temp);
+		
+		return ;
+	}
+	
+	int i =0;
+	struct node *temp1 = (*head_ref);
+	struct node *prev = NULL;
+		
+	
+	while(i!=pos)
+	{
+		prev = temp1;
+		temp1=temp1->next;
+		i++;
+	}
+	
+	prev->next = temp1->next;
+	free(temp1);
+	
+	
+}
+
+
+int main()
+{
+	struct node *head = (struct node*)malloc(sizeof(struct node));
+	
+	head->data = 10;
+	
+	head->next = createNode(20);
+	head->next->next= createNode(30);
+	head->next->next->next= createNode(40);
+	head->next->next->next->next= createNode(25);
+	head->next->next->next->next->next= createNode(50);
+	
+	
+	struct node* curr = head;
+	
+	while(curr!=NULL)
+	{
+		printf("%d ", curr->data); // printing all the node data using loop
+		
+		curr = curr->next;
+	}
+	
+	printf("\n");
+	
+	deletepos(&head , 0);
+	deletepos(&head , 1);
+	deletepos(&head , 2);
+	
+	struct node* curr2 = head;
+	
+	while(curr2!=NULL)
+	{
+		printf("%d ", curr2->data); // printing all the node data using loop
+		
+		curr2 = curr2->next;
+	}
+	return 0;
+}
+
+
