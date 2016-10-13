@@ -1,2 +1,2 @@
-# CSE-Interview
-All the interview programs with detailed explanation in one place.
+# CSE-Interview- Linked List (SLL, DLL, CIRCULAR LL)
+Has all the interview programs of Linked Lists with detailed explanation in one place.
